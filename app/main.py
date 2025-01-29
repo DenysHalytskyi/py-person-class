@@ -1,5 +1,7 @@
-class Person:
+from typing import List, Dict, Optional
 
+
+class Person:
     people = {}
 
     def __init__(self, name: str, age: int) -> None:
@@ -8,19 +10,18 @@ class Person:
         Person.people[name] = self
 
 
-def create_person_list(people: list) -> list:
+def create_person_list(people: List[Dict[str, Optional[str]]]) -> List[Person]:
     person_list = []
 
-    for i in people:
-        person = Person(i["name"], i["age"])
+    for person_data in people:
+        person = Person(person_data["name"], person_data["age"])
         person_list.append(person)
 
-
-    for i in people:
-        person = Person.people[i["name"]]
-        if "wife" in i and i["wife"]:
-            person.wife = Person.people[i["wife"]]
-        if "husband" in i and i["husband"]:
-            person.husband = Person.people[i["husband"]]
+    for person_data in people:
+        person = Person.people[person_data["name"]]
+        if "wife" in person_data and person_data["wife"]:
+            person.wife = Person.people[person_data["wife"]]
+        if "husband" in person_data and person_data["husband"]:
+            person.husband = Person.people[person_data["husband"]]
 
     return person_list
